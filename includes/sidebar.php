@@ -3,7 +3,7 @@
     <nav id="compactSidebar">
 
         <div class="theme-logo">
-            <a href="index-2.php">
+            <a href="index.php">
                 <img src="assets/img/logo.svg" class="navbar-logo" alt="logo">
             </a>
         </div>
