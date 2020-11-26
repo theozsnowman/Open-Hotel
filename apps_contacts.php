@@ -2,7 +2,16 @@
   session_start();
   require __DIR__ .'/includes/library.php';
   $app = new AppLib();
-  if (isset)
+  if (isset($_POST['add_contact'])){
+    $fullname = htmlspecialchars($_POST['fullname']);
+    $email = htmlspecialchars($_POST['email']);
+    $job = htmlspecialchars($_POST['job']);
+    $phone = htmlspecialchars($_POST['phone']);
+    $location = htmlspecialchars($_POST['location']);
+    $contact = $app->Add_Contact($fullname,$email,$job,$phone,$location);
+    echo "<script>alert('Contact Successfully Added')</script>";
+    echo "<script>window.location.href='apps_contacts.php'</script>";
+  }
 
  ?>
 <!DOCTYPE html>
