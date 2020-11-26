@@ -134,20 +134,43 @@ class AppLib
    * @param $user_id
    * @return $mixed
    * */
-  public function UserDetails($user_id)
-  {
-      try {
-          $db = DataBase();
-          $query = $db->prepare("SELECT id, FullName, UserName, Email FROM users WHERE id=:user_id");
-          $query->bindParam("user_id", $user_id, PDO::PARAM_STR);
-          $query->execute();
-          if ($query->rowCount() > 0) {
-              return $query->fetch(PDO::FETCH_OBJ);
-          }
-      } catch (PDOException $e) {
-          exit($e->getMessage());
-      }
-  }
+    public function UserDetails($user_id)
+    {
+        try {
+            $db = DataBase();
+            $query = $db->prepare("SELECT id, FullName, UserName, Email FROM users WHERE id=:user_id");
+            $query->bindParam("user_id", $user_id, PDO::PARAM_STR);
+            $query->execute();
+            if ($query->rowCount() > 0) {
+                return $query->fetch(PDO::FETCH_OBJ);
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+    /*
+     * Register New User
+     *
+     * @param $name, $email, $username, $password
+     * @return ID
+     * */
+    public function Add_Contact($full_name, $email,  $occupation,$phone,$location)
+    {
+        try {
+            $db = DataBase();
+            $sql = "INSERT INTO users(FullName, Email, Occupation, Phone, Location) VALUES (:fname,:email,:job,:phone,:location)";
+            $query = $db->prepare($sql);
+            $query->bindParam("fname", $full_name, PDO::PARAM_STR);
+            $query->bindParam("email", $email, PDO::PARAM_STR);
+            $query->bindParam("job", $occupation, PDO::PARAM_STR);
+            $query->bindParam("phone", $phone, PDO::PARAM_STR);
+            $query->bindParam("location", $location, PDO::PARAM_STR);
+            $query->execute();
+            return $db->lastInsertId();
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
 }
 
 ?>
