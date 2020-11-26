@@ -19,7 +19,8 @@ class AppLib
   {
       try {
           $db = DataBase();
-          $query = $db->prepare("INSERT INTO users(FullName, UserName, Email, Password) VALUES (:fname,:uname,:email,:pass)");
+          $sql = "INSERT INTO users(FullName, UserName, Email, Password) VALUES (:fname,:uname,:email,:pass)";
+          $query = $db->prepare($sql);
           $query->bindParam("fname", $full_name, PDO::PARAM_STR);
           $query->bindParam("uname", $username, PDO::PARAM_STR);
           $query->bindParam("email", $email, PDO::PARAM_STR);
@@ -42,10 +43,15 @@ class AppLib
   {
       try {
           $db = DataBase();
-          $query = $db->prepare("SELECT id FROM users WHERE UserName=:username");
+          $sql = "SELECT UserName,Password FROM users WHERE UserName=:username";
+          $query = $db->prepare($sql);
           $query->bindParam("username", $username, PDO::PARAM_STR);
           $query->execute();
+          $results=$query->fetchAll(PDO::FETCH_OBJ);
           if ($query->rowCount() > 0) {
+            foreach ($results as $row) {
+            $hashpass=$row->Password;
+            }
               return true;
           } else {
               return false;
@@ -79,30 +85,48 @@ class AppLib
   }
 
   /*
-   * Login
-   *
-   * @param $username, $password
-   * @return $mixed
-   * */
-  public function Login($username, $password)
-  {
-      try {
-          $db = DataBase();
-          $query = $db->prepare("SELECT id FROM users WHERE (UserName=:username OR Email=:username) AND Password=:password");
-          $query->bindParam("username", $username, PDO::PARAM_STR);
-          $enc_password = password_hash( $password,PASSWORD_DEFAULT);
-          $query->bindParam("password", $enc_password, PDO::PARAM_STR);
-          $query->execute();
-          if ($query->rowCount() > 0) {
-              $result = $query->fetch(PDO::FETCH_OBJ);
-              return $result->user_id;
-          } else {
-              return false;
-          }
-      } catch (PDOException $e) {
-          exit($e->getMessage());
-      }
-  }
+       * Login
+       *
+       * @param $username, $password
+       * @return $mixed
+       * */
+
+       /*
+    * Login
+    *
+    * @param $username, $password
+    * @return $mixed
+    * */    public function Login($username, $password)
+   {
+       try {
+           $db = DataBase();
+           $sql ="SELECT UserName,Password FROM users WHERE (UserName=:usname)";
+           $query= $db -> prepare($sql);
+           $query-> bindParam(':usname', $username, PDO::PARAM_STR);
+           $query-> execute();
+           $results=$query->fetchAll(PDO::FETCH_OBJ);
+           if($query->rowCount() > 0)
+           {
+             foreach ($results as $row) {
+               $hashpass=$row->Password;
+             }
+             //verifying Password
+             if(password_verify($password, $hashpass)) {
+                 $_SESSION['userlogin']=$_POST['username'];
+                 echo "<script type='text/javascript'> document.location = 'index.php'; </script>";
+               } else {
+                 echo "<script>alert('You entered wrong password')</script>";
+
+               }
+           }
+           //if username or email not found in database
+           else{
+              echo "<script>alert('User not registered with us')</script>";
+           }
+       } catch (PDOException $e) {
+           exit($e->getMessage());
+       }
+   }
 
   /*
    * get User Details
