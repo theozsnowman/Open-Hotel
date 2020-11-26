@@ -25,7 +25,7 @@
             <p class="error-text">Thank you for visiting us.</p>
             <p class="text">We are currently working on making some improvements <br/> to give you better user experience.</p>
             <p class="text">Please visit us again shortly.</p>
-            <a href="index-2.html" class="btn btn-info mt-4">Home</a>
+            <a href="index.php" class="btn btn-info mt-4">Home</a>
         </div>
     </div>
 

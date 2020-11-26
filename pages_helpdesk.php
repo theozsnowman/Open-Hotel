@@ -28,7 +28,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="pages_contact_us.html">Contact Us</a>
+                        <a class="nav-link" href="pages_contact_us.php">Contact Us</a>
                     </li>
                 </ul>
             </div>

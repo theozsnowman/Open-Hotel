@@ -23,7 +23,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-12 text-center mb-5">
-                    <a href="index-2.html" class="navbar-brand-privacy">
+                    <a href="index.php" class="navbar-brand-privacy">
                         <img src="assets/img/logo.svg" class="img-fluid" alt="logo">
                     </a>
                 </div>
