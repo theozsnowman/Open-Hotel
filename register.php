@@ -9,7 +9,7 @@
     $password = htmlspecialchars($_POST['password']);
     $password = password_hash($password,PASSWORD_DEFAULT);
     $user_id = $app->Register($fulname,$username,$email,$password);
-    echo "<script>alert('Account Successfully Created Successfully')</script>";
+    echo "<script>alert('Account Was Successfully Created Successfully')</script>";
     echo "<script>window.location.href='login.php'</script>";
   }
  ?>
