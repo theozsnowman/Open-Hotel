@@ -9,8 +9,7 @@
     $password = htmlspecialchars($_POST['password']);
     $password = password_hash($password,PASSWORD_DEFAULT);
     $user_id = $app->Register($fulname,$username,$email,$password);
-    $_SESSION['user_id'] = $user_id;
-    echo "<script>alert('Account Successfully Created')</script>";
+    echo "<script>alert('Account Successfully Created Successfully')</script>";
     echo "<script>window.location.href='login.php'</script>";
   }
  ?>
@@ -79,7 +78,7 @@
 
                                 <div class="d-sm-flex justify-content-between">
                                     <div class="field-wrapper">
-                                        <button type="submit" name="register" class="btn btn-primary" value="">Get Started!</button>
+                                        <button type="submit" name="register" class="btn btn-primary" value="">Create Account!</button>
                                     </div>
                                 </div>
 
